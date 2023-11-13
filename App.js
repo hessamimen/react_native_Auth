@@ -10,7 +10,9 @@ import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import { useContext, useEffect, useState } from "react";
 import IconButton from "./components/ui/IconButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AppLoading from "expo-app-loading";
+// import AppLoading from "expo-app-loading";
+
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -79,18 +81,20 @@ function Root() {
       }
 
       setIsTryingLogin(false);
+      await SplashScreen.hideAsync();
     }
 
     fetchToken();
   }, []);
 
-  if (isTryingLogin) {
-    return <AppLoading />;
-  }
+  // if (isTryingLogin) {
+  //   return <AppLoading />;
+  // }
 
   return <Navigation />;
 }
 
+SplashScreen.preventAutoHideAsync();
 export default function App() {
   return (
     <>
